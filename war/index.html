@@ -8,6 +8,8 @@
 	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="js/jquery.lightbox_me.js"></script>
+	<script type="text/javascript" src="js/UserCreate.js"></script>
+	
 	<title></title>
 	
 </head>
@@ -62,9 +64,9 @@
 		date.setTime(date.getTime()+(days*24*60*60*1000));
 		var expires = "; expires="+date.toGMTString();
 	}
+	console.log(value);
 	else var expires = "";
 	document.cookie = name+"="+value+expires+"; path=/";
-	
 	document.getElementById('footer').style.visibility = "visible";
 	
 }
@@ -99,8 +101,36 @@ function readCookie(name) {
             <div>
                 <input type="password" id="password" value="" placeholder=" password" style="width:100%; font-size:6pt;"/>
             </div>
-            <a href="#credentials_form"><input type="image" name="submit" value="submit" src="img/Login_GO_button.png" style="display: block; margin-left: auto; margin-right: auto; width: 45%" onClick="createCookie2('user_id_cookie','123',7)" /></a>
+            <a href="#credentials_form"><input type="image" name="submit" value="submit" src="img/Login_GO_button.png" style="display: block; margin-left: auto; margin-right: auto; width: 45%" onClick="createCookie2('user_id_cookie',document.getElementById('userID').name ,7)" /></a>
+            <a href="#signup_form"><p style="margin-top:3px; color:fff; font-size:8pt; text-align:center;">Don't have an account?</p></a>
 
+        </div>
+        
+       	<a href="" class="overlay" id="signup_form"></a>
+        <div class="popup" style="height:300px;">
+        <form name="myForm" action="" method="get">
+        	<img src="img/Logo.gif" style="display: block; margin-left: auto; margin-right: auto; width: 45%"/>
+            <p style="color:fff; font-size:12pt; text-align:center;">Sign Up</p>
+            <div>
+                <input type="text" name="username" id="login" value="" placeholder=" username" style="width:100%; font-size:6pt;"/>
+            </div>
+            <div>
+				<td><SELECT NAME="gender" style="width: 100%">
+						<OPTION SELECTED VALUE="Male">Male</OPTION>
+						<OPTION VALUE="Female">Female</OPTION>
+				</SELECT></td>
+				</div>
+            <div>
+                <input type="text" name="facebookId" id="login" value=""  placeholder=" Facebook username" style="width:100%; font-size:6pt;"/>
+            </div>
+            <div>
+                <input type="text" name="linkedInId" id="login" value="" placeholder=" LinkedIn username" style="width:100%; font-size:6pt;"/>
+            </div>
+            <div>
+                <input type="password" name="password" id="password" value="" placeholder="password" style="width:100%; font-size:6pt;"/>
+            </div>
+            <a href="#credentials_form"><input type="image" name="submit" value="submit" src="img/Login_GO_button.png" style="display: block; margin-left: auto; margin-right: auto; width: 45%" onClick="validateForm(this.form); createCookie2('user_id_cookie','123',7)" /></a>
+		</form>
         </div>
         		
 				
