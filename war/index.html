@@ -1,0 +1,179 @@
+<html>
+<head>
+ 	<script src="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="css/leaflet.css"/>
+    <link href="css/modal.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/jquery.lightbox_me.js"></script>
+	<title></title>
+	
+</head>
+<body>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+		document.getElementById('footer').style.visibility = "hidden";
+  });
+</script>
+
+		<div id="map"></div>
+		<script>
+			var map = L.map('map').setView([37.47269, -122.12059], 13);
+			L.tileLayer('http://{s}.tile.cloudmade.com/d4fc77ea4a63471cab2423e66626cbb6/997/256/{z}/{x}/{y}.png', {
+    		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+    		maxZoom: 18
+		}).addTo(map);
+
+		var EventIcon = L.Icon.extend({
+    		options: {
+       		 iconSize:     [38, 45],
+       		 shadowSize:   [50, 64],
+      		 iconAnchor:   [22, 94],
+      		 shadowAnchor: [4, 62],
+      		 popupAnchor:  [-3, -76]
+  		  }
+		});
+		
+		var greenIcon = new EventIcon({iconUrl: 'img/green_icon.gif'}),
+    	blueIcon = new EventIcon({iconUrl: 'img/blue_icon.gif'}),
+    	hostIcon = new EventIcon({iconUrl: 'img/host_icon.gif'});
+    
+		var popup = L.popup();
+		
+		L.marker([37.46251, -122.13209], {icon: greenIcon}).addTo(map).bindPopup();
+		L.marker([37.46791, -122.18393], {icon: blueIcon}).addTo(map).bindPopup();
+		L.marker([37.43861, -122.11235], {icon: hostIcon}).addTo(map).bindPopup();
+
+		function onMapClick(e) {
+   		 popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+		}
+
+		map.on('click', onMapClick);
+		
+		function createCookie2(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+	
+	document.getElementById('footer').style.visibility = "visible";
+	
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+	
+		</script>
+				<div id="slideout">
+  <img src="img/feedback.png" alt="Feedback" />
+  <div id="slideout_inner">
+   <form>
+   </form>
+  </div>
+</div>
+		
+		<a href="" class="overlay" id="login_form"></a>
+        <div class="popup">
+        	<img src="img/Logo.gif" style="display: block; margin-left: auto; margin-right: auto; width: 45%"/>
+            <p style="color:fff; font-size:12pt; text-align:center;">Login</p>
+            <div>
+                <input type="text" id="login" value="" placeholder=" username" style="width:100%; font-size:6pt;"/>
+            </div>
+            <div>
+                <input type="password" id="password" value="" placeholder=" password" style="width:100%; font-size:6pt;"/>
+            </div>
+            <a href="#credentials_form"><input type="image" name="submit" value="submit" src="img/Login_GO_button.png" style="display: block; margin-left: auto; margin-right: auto; width: 45%" onClick="createCookie2('user_id_cookie','123',7)" /></a>
+
+        </div>
+        		
+				
+		<a href="#x" class="overlay" id="credentials_form"></a>
+        <div class="popup" style=" width:50%; height:50%; background-image: -webkit-linear-gradient(bottom, #4661E1 0%, #374EA0 100%);"">
+        	<img src="img/Logo.gif" style="display: block; margin-left: 5%; width: 25%"/>
+        	<img src="img/profile.gif" style="display: block; padding-top:10px; margin-left: 5%; width: 25%; border-radius = 10px;"/>
+          	<p style="color:fff; font-size:10pt; margin-top:-30%; margin-left:45%; text-align:left;">I am going to:</p>
+          	<input type="text" id="password" value="" placeholder="Enter an address or location for where you're going." style="margin-left:45%; font-size:6pt; width:50%;"/>
+          	<p style="color:fff; font-size:10pt; margin-left:45%; text-align:left;">I will be there from:</p>
+          	<div style="display:block;">
+        	<input type="text" id="password" value="" placeholder="Starting Date" style="margin-left:45%; font-size:6pt; width:18%; text-align:center; float:left;"/>
+        	</div>
+        	<div style="float:left;">
+        	<p style="color:#fff; margin-top:0px; margin-left:20px; font-size:8pt;">to</p>
+        	</div>
+        	<div style="float:left;">
+        	<input type="text" id="password" value="" placeholder="Ending Date" style="margin-left:28%; font-size:6pt; width:100%; text-align:center; float:left;"/>
+        	</div>
+        	<a href="#main"><img src="img/Buddy_Me_Up.png" style="display: block; margin-left: 52%; width: 35%" onClick="hideDiv()"/></a>
+       		<p style="color:#fff; margin-top:0px; margin-left:4.5%; font-size:14pt; margin-top:0%;" >Welcome, Lin!</p>
+       		
+        </div>
+        
+        <a href="#xx" class="overlay" id="event_id_rfq234"></a>
+        <div class="popup" style=" width:50%; height:50%; background-image:url('my_event.gif');">
+        	
+        </div>
+        
+        <style>
+	ul#display-inline-block-example,
+	ul#display-inline-block-example li {
+		/* Setting a common base */
+		margin: 0;
+		padding: 0;
+	}
+
+	ul#display-inline-block-example li {
+		display: inline-block;
+		width: 19%;
+		min-height: 30%;
+		color:#D3E6F2;		
+		text-align: center;
+		font-size: 10pt;
+		padding-bottom: 0px;
+	}
+</style>
+
+		<div class="footer" id="footer">
+			
+<ul id="display-inline-block-example">
+	<li># of People</li>
+	<li>Budget</li>
+	  <li><img src="img/profile.gif" alt="Feedback" style="width:50%; margin-top:-45%; border-radius:5px;" /></li>
+	
+	<li>Join Requests</li>
+	<li>Co-ed?</li>
+</ul>
+
+<ul id="display-inline-block-example">
+	<li><input type="text" id="numPeople" value="" placeholder="-" style=" color: #D3E6F2; margin-top: -2px; width:60%; font-size:16pt; border-radius:10px; background:#73A9D8; text-align:center; color:fff;"/></li>
+	<li><input type="text" id="budget" value="" placeholder="-" style=" color: #D3E6F2; margin-top: -2px; width:60%; font-size:16pt; border-radius:10px; background:#73A9D8; text-align:center;"/></li>
+	<li><a href="#" style="color:fff;">Edit Trip Details</a></li>
+	<li><input type="text" id="numInvites" value="" placeholder="0" style=" color: #D3E6F2; margin-top: -2px; width:60%; font-size:16pt; border-radius:10px; background:#73A9D8; text-align:center;"/></li>
+	<a href="#credentials_form"/><li><input type="text" id="coed" value="" placeholder="NO" style=" color: #D3E6F2; margin-top: -2px; width:60%; font-size:16pt; border-radius:10px; background:#73A9D8; text-align:center;"/></li></a>
+	
+	<li>Invites</li>
+	<li>Co-ed?</li>
+</ul>
+
+		</div>
+        
+
+
+</body>
+</html>
